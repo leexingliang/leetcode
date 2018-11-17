@@ -13,17 +13,17 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 		return head
 	}
 
-	var tail *ListNode = head
-	var node *ListNode = head
+	var start *ListNode = new(ListNode)
+
+	var tail *ListNode = start
+	var node *ListNode = start
+	start.Next = head
 
 	var i int
 	for i = 1; i <= n; i++ {
 		if tail.Next != nil {
 			tail = tail.Next
 		}
-	}
-	if i < n {
-		return head
 	}
 
 	// 遍历,找到倒数第 n+1 个节点
@@ -33,6 +33,5 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 
 	node.Next = node.Next.Next
-
-	return head
+	return start.Next
 }
