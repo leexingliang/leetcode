@@ -11,9 +11,10 @@ type arrayStack struct {
 // NewArrayStack new array stack
 func NewArrayStack(cap int) Stack {
 	return &arrayStack{
+		data:   make([]int, cap, cap),
 		cap:    cap,
 		length: 0,
-		top:    -1,
+		top:    0,
 	}
 }
 
@@ -22,7 +23,7 @@ func (s *arrayStack) Push(data int) error {
 		return ErrStackFull
 	}
 
-	s.data = append(s.data, data)
+	s.data[s.top] = data
 	s.length++
 	s.top++
 
@@ -34,9 +35,9 @@ func (s *arrayStack) Pop() (int, error) {
 		return 0, ErrStackEmpty
 	}
 
+	s.top--
 	tmp := s.data[s.top]
 	s.length--
-	s.top--
 
 	return tmp, nil
 }
